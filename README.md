@@ -1,4 +1,56 @@
-angular-elements
-================
+<a href="http://pixelscommander.com/polygon/angular-elements/demo/#.U0LMA62Sy7o">
+    <img alt="Reactive Elements" src="http://pixelscommander.com/polygon/angular-elements/assets/angular-elements-logo-small.png"/>
+</a>
 
-Allows to use AngularJS component as HTML element
+AngularJS directives as native HTML elements
+===========================================
+
+Tiny Google [Polymer](http://polymer-project.org) or Mozilla [X-Tags](http://www.x-tags.org/) add-on which allows to use [AngularJS](https://github.com/angular/angular.js/) components as [custom HTML elements](http://w3c.github.io/webcomponents/spec/custom/). Also works with a native Custom Elements implementation if present.
+
+[Demo](http://pixelscommander.com/polygon/angular-elements/demo/)
+
+Example
+-------
+
+**Using component in HTML**
+
+```html
+<body>
+	<my-angular-component items="{window.someArray}"></my-angular-component>
+</body>
+```
+
+**Angular directive definition**
+```js
+/* @jsx React.DOM */
+MyDirective = ...
+
+document.registerReact('my-angular-component', MyDirective);
+```
+
+**Find complete examples in corresponding folder.**
+
+Nesting
+-------
+
+Original content of a custom element is injected to component as ```$scope._content```.
+
+```html
+<my-angular-component>Hello world</my-angular-component>
+```
+
+In this case $scope._content is equal to "Hello world".
+
+
+Dependencies
+------------
+
+- [AngularJS](https://github.com/angular/angular.js)
+- [X-Tag core](https://github.com/x-tag/core) or [Polymer custom elements](https://github.com/Polymer/CustomElements) or native browser support for custom elements.
+
+License
+-------
+
+MIT: http://mit-license.org/
+
+Copyright 2014 Stepan Suvorov aka [stevermeister](http://github.com/stevermeister), Denis Radin aka [PixelsCommander](http://pixelscommander.com)
