@@ -17,11 +17,21 @@
             'to a web-components',
             'with document.registerAngular("component-name", MyDirectiveClass)'
         ];
+
+        window.anotherArray = [
+            'Wow!',
+            'attribute of node changed',
+            'and directive rerendered'
+        ];
     </script>
     <angular-list id="myList" items="{window.someArray}"></angular-list>
     <script>
         var myComponentInstance = document.getElementById('myList');
         myComponentInstance.testMethod();
+
+        setTimeout(function(){
+            myComponentInstance.setAttribute('items', '{window.anotherArray}');
+        }, 1000)
     </script>
 </body>
 </html>

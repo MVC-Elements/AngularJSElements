@@ -20,22 +20,20 @@
 
             angular.bootstrap(this.parentNode, [this.angularModuleName]);
 
-            var scope = angular.element(this).isolateScope();
-            extend(this, scope);
+            this.isolateScope = angular.element(this).isolateScope();
+            extend(this, this.isolateScope);
 
-            //TODO extend scope with attributes
-            /*getterSetter(this, 'props', function () {
-             return this.reactiveElement.props;
-             }, function (value) {
-             this.reactiveElement.props = value;
-             });
+            var attributesObjects = getAllProperties(this, this.attributes);
+            extend(this.isolateScope, attributesObjects);
 
-             React.renderComponent(this.reactiveElement, this);*/
+            this.isolateScope.$apply();
         };
 
         elementPrototype.attributeChangedCallback = function () {
-            //TODO refresh content of scope of this.angularDirective with tag attributes
-            //TODO rerender directive if attribute changed
+            var attributesObjects = getAllProperties(this, this.attributes);
+            extend(this.isolateScope, attributesObjects, true);
+
+            this.isolateScope.$apply();
         }
 
         registrationFunction(elementName, {
@@ -61,9 +59,9 @@
         };
     }
 
-    var extend = function (extandable, extending) {
+    var extend = function (extandable, extending, replace) {
         for (var i in extending) {
-            if (extandable[i] === undefined) {
+            if (extandable[i] === undefined || replace === true) {
 
                 if (typeof extending[i] === 'function') {
                     extandable[i] = extending[i].bind(extending);
