@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="demo">
 <head>
     <title>Angular list as a web-component</title>
-    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
     <script src="../src/angular-elements.js"></script>
+    <script src="js/angular-list.js"></script>
 </head>
 <body>
     <script>
@@ -17,6 +18,8 @@
             'with document.registerAngular("component-name", MyDirectiveClass)'
         ];
     </script>
-    <angular-list items="{window.someArray}"></angular-list>
+    <!--<angular-list items="{window.someArray}"></angular-list>-->
+    <angular-list items=""></angular-list>
+
 </body>
 </html>

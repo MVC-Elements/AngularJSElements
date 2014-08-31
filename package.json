@@ -4,6 +4,7 @@
   "description": "Allows to use AngularJS component as HTML element",
   "main": "index.js",
   "scripts": {
+    "postinstall": "./node_modules/.bin/bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
