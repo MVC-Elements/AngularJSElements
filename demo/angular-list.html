@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular list as a web-component</title>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="../src/angular-elements.js"></script>
+</head>
+<body>
+    <script>
+        window.someArray = [
+            'AngularJS',
+            'is',
+            'great',
+            'and now',
+            'you can convert direvtives',
+            'to a web-components',
+            'with document.registerAngular("component-name", MyDirectiveClass)'
+        ];
+    </script>
+    <angular-list items="{window.someArray}"></angular-list>
+</body>
+</html>
