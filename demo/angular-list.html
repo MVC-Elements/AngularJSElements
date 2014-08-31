@@ -18,9 +18,10 @@
             'with document.registerAngular("component-name", MyDirectiveClass)'
         ];
     </script>
-    <angular-list items="{window.someArray}"></angular-list>
-
-    <!--<angular-list items=""></angular-list>-->
-
+    <angular-list id="myList" items="{window.someArray}"></angular-list>
+    <script>
+        var myComponentInstance = document.getElementById('myList');
+        myComponentInstance.testMethod();
+    </script>
 </body>
 </html>

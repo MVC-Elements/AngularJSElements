@@ -1,22 +1,25 @@
-function angularListDirective(){
-  return {
-    restrict: 'E',
-    replace: true,
-    template: '<ul><li ng-repeat="x in items">{{ x }}</li></ul>',
-    link: function(scope) {
-      scope.items = [
-        'AngularJS',
-        'is',
-        'great',
-        'and now',
-        'you can convert direvtives',
-        'to a web-components',
-        'with document.registerAngular("component-name", MyDirectiveClass)'
-      ];
-    }
-  };
-}
+angular.module('demo', []).directive('angularList', function () {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {},
+        template: '<ul><li ng-repeat="x in items">{{ x }}</li></ul>',
+        link: function (scope) {
+            scope.items = [
+                'AngularJS',
+                'is',
+                'great',
+                'and now',
+                'you can convert direvtives',
+                'to a web-components',
+                'with document.registerAngular("component-name", MyDirectiveName)'
+            ];
 
-angular.module('demo', []).directive('angularList', angularListDirective);
+            scope.testMethod = function () {
+                alert('Directive method called as node method');
+            }
+        }
+    };
+});
 
-document.registerAngular('angular-list', 'angularList');
+document.registerAngular('angular-list', 'demo.angularList');

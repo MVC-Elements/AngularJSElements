@@ -8,24 +8,29 @@
         return;
     }
 
-    var registerAngular = function (elementName, directiveName) {
+    var registerAngular = function (elementName, namespaceString) {
         var elementPrototype = Object.create(HTMLElement.prototype);
         elementPrototype.createdCallback = function () {
             this._content = getContentNodes(this);
-            this.angularDirective = {};
-            this.angularDirective = undefined;//TODO Create instance of directive
 
-            //TODO extend node with directive methods
+            var directiveInfo = getModuleAndDirectiveFromNamespaceString(namespaceString);
+
+            this.angularDirectiveName = directiveInfo.directive;
+            this.angularModuleName = directiveInfo.module;
+
+            angular.bootstrap(this.parentNode, [this.angularModuleName]);
+
+            var scope = angular.element(this).isolateScope();
+            extend(this, scope);
+
             //TODO extend scope with attributes
-            /*extend(this, this.angularDirective);
+            /*getterSetter(this, 'props', function () {
+             return this.reactiveElement.props;
+             }, function (value) {
+             this.reactiveElement.props = value;
+             });
 
-            getterSetter(this, 'props', function () {
-                return this.reactiveElement.props;
-            }, function (value) {
-                this.reactiveElement.props = value;
-            });
-
-            React.renderComponent(this.reactiveElement, this);*/
+             React.renderComponent(this.reactiveElement, this);*/
         };
 
         elementPrototype.attributeChangedCallback = function () {
@@ -44,6 +49,18 @@
         w.xtag.registerAngular = registerAngular;
     }
 
+    var getModuleAndDirectiveFromNamespaceString = function (namespaceString) {
+        var result = namespaceString.split('.');
+        if (result.length === 1) {
+            throw ('Please provide namespace string in format module.directive');
+            return undefined;
+        }
+        return {
+            'module': result[0],
+            'directive': result[1]
+        };
+    }
+
     var extend = function (extandable, extending) {
         for (var i in extending) {
             if (extandable[i] === undefined) {
@@ -59,7 +76,7 @@
 
     var getContentNodes = function (el) {
         var fragment = document.createElement('content');
-        while(el.childNodes.length) {
+        while (el.childNodes.length) {
             fragment.appendChild(el.childNodes[0]);
         }
         return fragment;
