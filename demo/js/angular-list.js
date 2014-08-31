@@ -1,8 +1,3 @@
-
-//var AngularLIst = {};//TODO Declare directive AngularList as usual
-
-//<angular-list items="{window.someArray}"></angular-list>
-
 function angularListDirective(){
   return {
     restrict: 'E',
@@ -22,7 +17,6 @@ function angularListDirective(){
   };
 }
 
-
 angular.module('demo', []).directive('angularList', angularListDirective);
 
-//document.registerAngular('angular-list', angularListDirective);
+document.registerAngular('angular-list', 'angularList');

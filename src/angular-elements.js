@@ -8,7 +8,7 @@
         return;
     }
 
-    var registerAngular = function (elementName, directiveClass) {
+    var registerAngular = function (elementName, directiveName) {
         var elementPrototype = Object.create(HTMLElement.prototype);
         elementPrototype.createdCallback = function () {
             this._content = getContentNodes(this);
