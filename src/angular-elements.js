@@ -20,20 +20,26 @@
 
             angular.bootstrap(this.parentNode, [this.angularModuleName]);
 
-            this.isolateScope = angular.element(this).isolateScope();
-            extend(this, this.isolateScope);
+            //this.isolateScope = angular.element(this).isolateScope();
+            //extend(this, this.isolateScope);
+            this.scope = getDirectiveScope(this.angularModuleName, this.angularDirectiveName);
+            extend(this, this.scope);
 
             var attributesObjects = getAllProperties(this, this.attributes);
-            extend(this.isolateScope, attributesObjects);
+            //extend(this.isolateScope, attributesObjects);
+            extend(this.scope, attributesObjects);
 
-            this.isolateScope.$apply();
+            //this.isolateScope.$apply();
+            this.scope.$apply();
         };
 
         elementPrototype.attributeChangedCallback = function () {
             var attributesObjects = getAllProperties(this, this.attributes);
-            extend(this.isolateScope, attributesObjects, true);
+            //extend(this.isolateScope, attributesObjects, true);
+            extend(this.scope, attributesObjects, true);
 
-            this.isolateScope.$apply();
+            //this.isolateScope.$apply();
+            this.scope.$apply();
         }
 
         registrationFunction(elementName, {
@@ -46,6 +52,15 @@
     if (w.xtag !== undefined) {
         w.xtag.registerAngular = registerAngular;
     }
+
+    var getDirectiveScope = function (moduleName, directiveName){
+        var $injector = angular.injector(['ng', moduleName]);
+        var directive = $injector.get(directiveName + 'Directive')[0];
+        var spyScope = $injector.get('$rootScope').$new();
+        !!directive.controller && directive.controller(spyScope);
+        directive.link(spyScope);
+        return spyScope;
+    };
 
     var getModuleAndDirectiveFromNamespaceString = function (namespaceString) {
         var result = namespaceString.split('.');
