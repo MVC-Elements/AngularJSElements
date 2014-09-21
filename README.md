@@ -22,10 +22,20 @@ Example
 
 **Angular directive definition**
 ```js
-/* @jsx React.DOM */
-MyDirective = ...
+angular.module('demo', []).directive('angularList', function () {
+    return {
+        restrict: 'E',
+        scope: {},
+        template: '<ul><li ng-repeat="x in items">{{ x }}</li></ul>',
+        link: function (scope) {
+            scope.testMethod = function () {
+                alert('Directive method called as node method');
+            }
+        }
+    };
+});
 
-document.registerReact('my-angular-component', MyDirective);
+document.registerAngular('my-angular-component', 'demo.angularList');
 ```
 
 **Find complete examples in corresponding folder.**

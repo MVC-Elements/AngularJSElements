@@ -23,10 +23,7 @@
             this.isolateScope = angular.element(this).isolateScope();
             extend(this, this.isolateScope);
 
-            var attributesObjects = getAllProperties(this, this.attributes);
-            extend(this.isolateScope, attributesObjects);
-
-            this.isolateScope.$apply();
+            this.isolateScope._content = this._content;
         };
 
         elementPrototype.attributeChangedCallback = function () {
