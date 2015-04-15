@@ -36,7 +36,7 @@ angular.module('demo', []).directive('angularList', function () {
     };
 });
 
-document.registerAngular('my-angular-component', 'demo.angularList');
+document.registerAngular('my-angular-component', 'demo');
 ```
 
 **Find complete examples in corresponding folder.**
@@ -64,4 +64,4 @@ License
 
 MIT: http://mit-license.org/
 
-Copyright 2014 Stepan Suvorov aka [stevermeister](http://github.com/stevermeister), Denis Radin aka [PixelsCommander](http://pixelscommander.com)
+Copyright 2015 Stepan Suvorov aka [stevermeister](http://github.com/stevermeister), Denis Radin aka [PixelsCommander](http://pixelscommander.com)
