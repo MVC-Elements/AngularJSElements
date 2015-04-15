@@ -11,4 +11,4 @@ angular.module('demo', []).directive('angularList', function () {
     };
 });
 
-document.registerAngular('angular-list', 'demo.angularList');
+document.registerAngular('angular-list', 'demo');
