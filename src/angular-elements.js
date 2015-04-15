@@ -8,29 +8,28 @@
         return;
     }
 
-    var registerAngular = function (elementName, namespaceString) {
+    var registerAngular = function (elementName, moduleName) {
         var elementPrototype = Object.create(HTMLElement.prototype);
         elementPrototype.createdCallback = function () {
             this._content = getContentNodes(this);
-
-            var directiveInfo = getModuleAndDirectiveFromNamespaceString(namespaceString);
-
-            this.angularDirectiveName = directiveInfo.directive;
-            this.angularModuleName = directiveInfo.module;
+            this.angularModuleName = moduleName;
 
             angular.bootstrap(this.parentNode, [this.angularModuleName]);
 
-            this.isolateScope = angular.element(this).isolateScope();
-            extend(this, this.isolateScope);
+            this.scope = angular.element(this).isolateScope() || angular.element(this.parentNode).scope();
+            extend(this, this.scope);
 
-            this.isolateScope._content = this._content;
+            var attributesObjects = getAllProperties(this, this.attributes);
+            extend(this.scope, attributesObjects);
+
+            this.scope.$digest();
         };
 
         elementPrototype.attributeChangedCallback = function () {
             var attributesObjects = getAllProperties(this, this.attributes);
-            extend(this.isolateScope, attributesObjects, true);
+            extend(this.scope, attributesObjects, true);
 
-            this.isolateScope.$apply();
+            this.scope.$digest();
         }
 
         registrationFunction(elementName, {
@@ -42,18 +41,6 @@
 
     if (w.xtag !== undefined) {
         w.xtag.registerAngular = registerAngular;
-    }
-
-    var getModuleAndDirectiveFromNamespaceString = function (namespaceString) {
-        var result = namespaceString.split('.');
-        if (result.length === 1) {
-            throw ('Please provide namespace string in format module.directive');
-            return undefined;
-        }
-        return {
-            'module': result[0],
-            'directive': result[1]
-        };
     }
 
     var extend = function (extandable, extending, replace) {
