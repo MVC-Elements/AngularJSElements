@@ -44,13 +44,13 @@ document.registerAngular('my-angular-component', 'demo');
 Nesting
 -------
 
-Original content of a custom element is injected to component as ```$scope._content```.
+Original content of a custom element is injected to component as:
 
 ```html
 <my-angular-component>Hello world</my-angular-component>
 ```
 
-In this case $scope._content is equal to "Hello world".
+In this case we can use "Hello world" as transclude to "my-angular-component" directive.
 
 
 Dependencies
