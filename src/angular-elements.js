@@ -14,7 +14,7 @@
             this._content = getContentNodes(this);
             this.angularModuleName = moduleName;
 
-            angular.bootstrap(this.parentNode, [this.angularModuleName]);
+            angular.bootstrap(this, [this.angularModuleName]);
 
             this.scope = angular.element(this).isolateScope() || angular.element(this.parentNode).scope();
             extend(this, this.scope);
